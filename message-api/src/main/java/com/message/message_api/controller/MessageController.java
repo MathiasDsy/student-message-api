@@ -23,6 +23,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<Message> createMessage(@Valid @RequestBody MessageCreationRequest request) {
         Message message = messageService.createMessage(request);
+        System.out.println("coucou");
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
