@@ -8,8 +8,9 @@ Installation
 
 Clonez ce repository sur votre machine locale :
 
-git clone https://github.com/mathiasdsy/gestion-messages-etudiants.git
-cd gestion-messages-etudiants
+git clone https://github.com/mathiasdsy/student-message-api.git
+cd student-message-api
+
 
 Installez les dépendances nécessaires :
 
