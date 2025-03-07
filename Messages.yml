@@ -1,0 +1,229 @@
+openapi: 3.0.0
+info:
+  title: API Messages pour Système de Gestion des Effectifs Étudiants
+  description: API REST pour la gestion des messages des étudiants
+  version: 1.0.0
+servers:
+  - url: /api
+    description: Serveur de développement
+tags:
+  - name: Messages
+    description: Opérations sur les messages des étudiants
+
+paths:
+  /messages:
+    post:
+      tags:
+        - Messages
+      summary: Crée un nouveau message
+      description: Permet de créer un nouveau message pour un étudiant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreationRequest'
+      responses:
+        '201':
+          description: Message créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Requête invalide
+        '401':
+          description: Non autorisé
+        '403':
+          description: Accès interdit
+        '404':
+          description: Étudiant non trouvé
+        '500':
+          description: Erreur interne du serveur
+      
+  /messages/{id}:
+    get:
+      tags:
+        - Messages
+      summary: Récupère un message spécifique
+      description: Récupère les détails d'un message par son ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID du message à récupérer
+      responses:
+        '200':
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          description: Non autorisé
+        '403':
+          description: Accès interdit
+        '404':
+          description: Message non trouvé
+        '500':
+          description: Erreur interne du serveur
+    
+    put:
+      tags:
+        - Messages
+      summary: Met à jour un message
+      description: Met à jour les informations d'un message existant (notamment son statut de lecture)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID du message à mettre à jour
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageUpdateRequest'
+      responses:
+        '200':
+          description: Message mis à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Requête invalide
+        '401':
+          description: Non autorisé
+        '403':
+          description: Accès interdit
+        '404':
+          description: Message non trouvé
+        '500':
+          description: Erreur interne du serveur
+    
+    delete:
+      tags:
+        - Messages
+      summary: Supprime un message
+      description: Supprime un message spécifique
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID du message à supprimer
+      responses:
+        '204':
+          description: Message supprimé avec succès
+        '401':
+          description: Non autorisé
+        '403':
+          description: Accès interdit
+        '404':
+          description: Message non trouvé
+        '500':
+          description: Erreur interne du serveur
+
+  /messages/etudiants/{id}:
+    get:
+      tags:
+        - Messages
+      summary: Récupère tous les messages d'un étudiant
+      description: Récupère la liste de tous les messages associés à un étudiant spécifique
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Numéro de l'étudiant dont on veut récupérer les messages
+        - name: lu
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filtrer les messages par statut de lecture (true = lu, false = non lu)
+      responses:
+        '200':
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '401':
+          description: Non autorisé
+        '403':
+          description: Accès interdit
+        '404':
+          description: Étudiant non trouvé
+        '500':
+          description: Erreur interne du serveur
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique du message (généré par MongoDB)
+        texte:
+          type: string
+          description: Contenu du message
+        lu:
+          type: boolean
+          description: Indique si le message a été lu par l'étudiant
+        dateCreation:
+          type: string
+          format: date-time
+          description: Date et heure de création du message
+        sujet:
+          type: string
+          description: Sujet du message
+        etudiantId:
+          type: integer
+          format: int64
+          description: Numéro de l'étudiant destinataire du message
+      required:
+        - texte
+        - lu
+        - etudiantId
+    
+    MessageCreationRequest:
+      type: object
+      properties:
+        texte:
+          type: string
+          description: Contenu du message
+        sujet:
+          type: string
+          description: Sujet du message
+        etudiantId:
+          type: integer
+          format: int64
+          description: Numéro de l'étudiant destinataire du message
+      required:
+        - texte
+        - etudiantId
+    
+    MessageUpdateRequest:
+      type: object
+      properties:
+        texte:
+          type: string
+          description: Contenu du message
+        lu:
+          type: boolean
+          description: Statut de lecture du message
+        sujet:
+          type: string
+          description: Sujet du message
