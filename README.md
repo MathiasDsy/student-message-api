@@ -3,16 +3,16 @@ API Messages pour Système de Gestion des Effectifs Étudiants
 Cette API permet de gérer les messages des étudiants dans un système de gestion des effectifs. Elle permet la création, la mise à jour, la suppression et la récupération des messages associés aux étudiants.
 Table des matières
 
-    Installation
-    Configuration
-    Utilisation
-        Créer un message
-        Récupérer un message spécifique
-        Mettre à jour un message
-        Supprimer un message
-        Récupérer les messages d'un étudiant
-    Structure de l'API
-    Licence
+Installation
+Configuration
+Utilisation
+    Créer un message
+    Récupérer un message spécifique
+    Mettre à jour un message
+    Supprimer un message
+    Récupérer les messages d'un étudiant
+Structure de l'API
+Licence
 
 Installation
 
