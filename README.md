@@ -8,7 +8,7 @@ Installation
 
 Clonez ce repository sur votre machine locale :
 
-git clone https://github.com/ton-username/gestion-messages-etudiants.git
+git clone https://github.com/mathiasdsy/gestion-messages-etudiants.git
 cd gestion-messages-etudiants
 
 Installez les dépendances nécessaires :
