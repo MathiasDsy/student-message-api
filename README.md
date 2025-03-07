@@ -1,7 +1,7 @@
 API Messages pour Système de Gestion des Effectifs Étudiants
 
 Cette API permet de gérer les messages des étudiants dans un système de gestion des effectifs. Elle permet la création, la mise à jour, la suppression et la récupération des messages associés aux étudiants.
-Table des matières
+La base de données se base sur mongoDB, un docker compose se trouve dans le dossier.
 
 
 Installation
@@ -11,19 +11,7 @@ Clonez ce repository sur votre machine locale :
 git clone https://github.com/mathiasdsy/student-message-api.git
 cd student-message-api
 
-
-Installez les dépendances nécessaires :
-
-npm install
-
-Configuration
-
-Assurez-vous d'avoir une base de données MongoDB configurée pour le stockage des messages. Si vous utilisez un environnement de développement local, vous pouvez utiliser MongoDB Atlas ou un serveur local MongoDB.
-
-Modifiez le fichier .env pour ajouter votre URI MongoDB et d'autres configurations :
-
-MONGODB_URI=mongodb://localhost:27017/messages
-PORT=3000
+Créer l'image docker avec docker compose up
 
 Utilisation
 
